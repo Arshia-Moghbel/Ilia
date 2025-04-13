@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For you, in Every Language</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;700&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Raleway', sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      color: #a3a9ff;
+    }
+    .quote {
+      font-size: 1.5rem;
+      max-width: 600px;
+      margin-bottom: 20px;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    .quote.show {
+      opacity: 1;
+    }
+    .language {
+      font-size: 1rem;
+      color: #cccccc;
+      margin-top: 10px;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    .language.show {
+      opacity: 1;
+    }
+    .final-quote {
+      font-family: 'Pacifico', cursive;
+      font-size: 2rem;
+      color: #ffdede;
+      margin-top: 40px;
+    }
+    button {
+      background-color: #4e54c8;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: #6a82fb;
+    }
+    button:disabled {
+      background-color: #444;
+      cursor: not-allowed;
+    }
+    audio {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>For you, in Every Language</h1>
+  <div class="quote-box">
+    <div class="quote" id="quote"></div>
+    <div class="language" id="language"></div>
+  </div>
+  <div class="final-quote" id="finalQuote"></div>
+  <button onclick="showNextQuote()" id="nextBtn">Next Quote</button>
+  <audio id="bg-music" autoplay loop>
+    <source src="https://radiodl2.musicmelnet.com/Music/1400/2/Relax%20Music%20-%20Musiceto%20(1).mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    const quotes = [
+      { text: "You are the poem I never knew how to write.", lang: "English" },
+      { text: "Eres la melodía que mi alma siempre quiso oír. (You are the melody my soul always wanted to hear.)", lang: "Spanish" },
+      { text: "Ты — моя тишина среди хаоса. (You are my silence in the chaos.)", lang: "Russian" },
+      { text: "Avec chaque battement de cœur, je murmure ton nom. (With every heartbeat, I whisper your name.)", lang: "French" },
+      { text: "Tu sei la luce nei miei giorni più bui. (You are the light in my darkest days.)", lang: "Italian" },
+      { text: "Du bist mein Zuhause, egal wo ich bin. (You are my home, no matter where I am.)", lang: "German" },
+      { text: "あなたは私の心の静けさです。 (You are the calm in my heart.)", lang: "Japanese" },
+      { text: "당신은 내 하루의 가장 따뜻한 순간입니다. (You are the warmest moment of my day.)", lang: "Korean" },
+      { text: "أنتَ نجمتي في لياليَّ الحالكة. (You are my star in the darkest nights.)", lang: "Arabic" },
+      { text: "Você é a melodia da minha alma. (You are the melody of my soul.)", lang: "Portuguese" },
+      { text: "Ты — звезда, что освещает мою вселенную. (You are the star that lights up my universe.)", lang: "Russian" },
+      { text: "Eres cada palabra dulce en todos los idiomas del amor. (You are every sweet word in all languages of love.)", lang: "Spanish" },
+      { text: "Ты — как вдох в морозный день. (You are like a breath on a frosty day.)", lang: "Russian" },
+      { text: "Tu es ma chanson préférée, même en silence. (You are my favorite song, even in silence.)", lang: "French" },
+      { text: "Sen benim huzurumsun. (You are my peace.)", lang: "Turkish" },
+      { text: "Tu ești motivul pentru care zâmbesc. (You are the reason I smile.)", lang: "Romanian" },
+      { text: "Ты — мое утро и моя ночь. (You are my morning and my night.)", lang: "Russian" },
+      { text: "Ты — всё, что я чувствую, когда смотрю на звёзды. (You are everything I feel when I look at the stars.)", lang: "Russian" }
+    ];
+
+    let index = 0;
+    const quoteBox = document.getElementById('quote');
+    const languageBox = document.getElementById('language');
+    const finalQuoteBox = document.getElementById('finalQuote');
+    const nextBtn = document.getElementById('nextBtn');
+
+    function showNextQuote() {
+      quoteBox.classList.remove('show');
+      languageBox.classList.remove('show');
+      setTimeout(() => {
+        if (index < quotes.length) {
+          const current = quotes[index];
+          quoteBox.textContent = current.text;
+          languageBox.textContent = `Language: ${current.lang}`;
+          quoteBox.classList.add('show');
+          languageBox.classList.add('show');
+          index++;
+        } else {
+          quoteBox.textContent = '';
+          languageBox.textContent = '';
+          nextBtn.disabled = true;
+          finalQuoteBox.textContent = "Ilia, you are my inspiration in every language.";
+        }
+      }, 500);
+    }
+
+    window.onload = showNextQuote;
+  </script>
+</body>
+</html>
