@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  
+  <!-- Favicon (برای تب مرورگر) -->
+  <link rel="icon" href="https://i.postimg.cc/NjttZ5tG/Ilia-icon.png" type="image/png" sizes="32x32" />
+  <link rel="shortcut icon" href="https://i.postimg.cc/NjttZ5tG/Ilia-icon.png" type="image/png" />
+
+  <!-- Apple Touch Icon (برای صفحه‌ی اصلی آیفون یا iPad) -->
+  <link rel="apple-touch-icon" sizes="180x180" href="https://i.postimg.cc/d1zLGC3Y/Ilia.png" />
+
+  <!-- Open Graph برای شبکه‌های اجتماعی -->
+  <meta property="og:title" content="Ilia Sharifi" />
+  <meta property="og:description" content="Welcome to Ilia's official 17HBD website." />
+  <meta property="og:image" content="https://i.postimg.cc/d1zLGC3Y/Ilia.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ilia-sharifi.netlify.app/" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ilia Sharifi" />
+  <meta name="twitter:description" content="Welcome to Ilia's official 17HBD website." />
+  <meta name="twitter:image" content="https://i.postimg.cc/d1zLGC3Y/Ilia.png" />
+
+  <!-- SEO -->
+  <meta name="description" content="A personalized birthday greeting for Ilia Sharifi made with love. Includes music, video and heartfelt messages.">
+  <meta name="author" content="Arshia Moghbel">
+  <meta name="keywords" content="Ilia Sharifi, Birthday, Love, Video, Music, Arshia, Surprise">
+
+  <title>HBD honey! 🎂</title>
+  
+  <!-- (CSS) -->
+  <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,700;1,400&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* تنظیمات عمومی برای کل صفحه */
+    body {
+      background: linear-gradient(145deg, #000428, #004e92);
+      font-family: 'Poppins', sans-serif;
+      color: #ffffff;
+      text-align: center;
+      overflow-x: hidden;
+      padding: 20px;
+      animation: pageFadeIn 1.5s ease;
+    }
+
+    #preloader {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: #000428;
+      color: white;
+      font-size: 1.8rem;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    @keyframes pageFadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-top: 30px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    /* عنوان اصلی صفحه تولد */
+    .headline {
+      font-size: 2.3rem;
+      font-weight: 600;
+      margin-top: 20px;
+      opacity: 0;
+      animation: fadeInLine 1s forwards;
+      animation-delay: 0.5s;
+    }
+
+    @media (min-width: 601px) and (max-width: 900px) {
+      .headline {
+        font-size: 1.8rem;
+      }
+      .line {
+        font-size: 1.3rem;
+      }
+    }
+
+    .text-container {
+      margin: 30px auto;
+      max-width: 700px;
+    }
+
+    .line {
+      font-size: 1.5rem;
+      margin: 20px 0;
+      opacity: 0;
+      animation: fadeInLine 1s forwards;
+    }
+      
+    .line:nth-child(1) { animation-delay: 2s; }
+    .line:nth-child(2) { animation-delay: 3.5s; }
+    .line:nth-child(3) { animation-delay: 5s; }
+    .line:nth-child(4) { animation-delay: 6.5s; }
+    .line:nth-child(5) { animation-delay: 8s; }
+    .line:nth-child(6) { animation-delay: 9.5s; }
+    .line:nth-child(7) { animation-delay: 11s; }
+
+    /* دکمه‌های دیسک که ویدیو را فعال می‌کنند */
+    .disk-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin: 50px auto 0;
+      animation: fadeIn 2s ease-in-out 12.5s forwards;
+      opacity: 0;
+    }
+
+    .disk-buttons img {
+      width: 140px;
+      height: 140px;
+      cursor: pointer;
+      transition: transform 1s ease, opacity 1s ease;
+    }
+
+    .disk-buttons img.clicked {
+      transform: rotate(720deg) scale(0);
+      opacity: 0;
+    }
+
+    /* قاب ویدیو پس از کلیک روی دیسک‌ها نمایش داده می‌شود */
+    .video-wrapper {
+      margin: 40px auto 0 auto;
+      display: none;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 2s ease-in-out forwards;
+    }
+
+    .video-wrapper iframe {
+      width: 720px;
+      height: 720px;
+      max-width: 90vw;
+      border: none;
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+    }
+
+      .billi-quote {
+        font-family: 'Poppins', sans-serif;
+        font-style: italic;
+        margin: 40px 0 20px;
+        font-size: 1.6rem;
+        color: #ffd700; /* طلایی */
+        text-shadow: 0 0 5px #fff5cc, 0 0 10px #ffe066, 0 0 15px #ffcc00;
+        opacity: 0;
+        animation: royalFade 3.5s ease-out 14s forwards, glowPulse 4s infinite 6s;
+        transition: all 0.4s ease-in-out;
+      }
+      
+      .text-for-button {
+          margin: 30px auto;
+          max-width: 700px;
+          opacity: 0;
+          animation: fadeIn 1s forwards;
+          animation-delay: 13s;
+    }
+
+        
+    /* لینک‌های دانلود پس از نمایش ویدیو */
+    .downloads {
+      margin-top: 20px;
+      display: none;
+    }
+
+    .downloads a {
+      display: inline-block;
+      background-color: #ffffff;
+      color: #004e92;
+      text-decoration: none;
+      padding: 10px 20px;
+      margin: 10px;
+      border-radius: 30px;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .downloads a:hover {
+      background-color: #dddddd;
+    }
+
+      /* متن تایپ‌شونده در انتهای صفحه */
+      .footer {
+        margin-top: 40px;
+        font-size: 1rem;
+        color: #bbb;
+        font-family: 'Poppins', sans-serif;
+        white-space: nowrap;
+        overflow: hidden;
+        border-right: 2px solid rgba(255, 255, 255, 0.75);
+        width: 0;
+        opacity: 0;
+        animation:
+          fadeIn 1.5s ease-in-out 15s forwards,
+          typewriter 3.5s steps(60) 15.5s forwards,
+          hideCursor 0.5s ease-out 19.1s forwards;
+      }
+
+    .back-button {
+      display: none;
+      margin-top: 20px;
+      background-color: #ffffff;
+      color: #004e92;
+      padding: 14px 28px;
+      border: none;
+      border-radius: 30px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .back-button:hover {
+      background-color: #dddddd;
+      transform: scale(1.05);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInLine {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes typewriter {
+        from { width: 0; }
+        to { width: 100%; }
+    }
+      @keyframes hideCursor {
+        to {
+          border-right: none;
+        }
+      }
+      @keyframes royalFade {
+        0% {
+          opacity: 0;
+          transform: translateY(12px) scale(0.97);
+        }
+        60% {
+          opacity: 0.7;
+          transform: translateY(4px) scale(1);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) scale(1.015);
+        }
+      }
+      @keyframes glowPulse {
+        0% {
+          text-shadow: 0 0 10px #fff5cc, 0 0 20px #ffe066, 0 0 30px #ffcc00;
+        }
+        50% {
+          text-shadow: 0 0 20px #fff5cc, 0 0 30px #ffe066, 0 0 40px #ffcc00;
+        }
+        100% {
+          text-shadow: 0 0 5px #fff5cc, 0 0 10px #ffe066, 0 0 15px #ffcc00;
+        }
+      }
+
+    @media (max-width: 600px) {
+      .line, .headline {
+        font-size: 1.2rem;
+        padding: 0 10px;
+      }
+
+      .video-wrapper iframe {
+        width: 90vw;
+        height: 90vw;
+      }
+
+      img {
+        width: 140px;
+        height: 140px;
+      }
+
+      .disk-buttons img {
+        width: 150px;
+        height: 150px;
+      }
+
+      .back-button {
+        font-size: 1rem;
+        padding: 10px 20px;
+      }
+      .footer {
+          white-space: normal;
+        }
+    }
+  </style>
+</head>
+<body>
+  <div id="preloader">Loading your surprise...🎁</div>
+  <!-- عکس اول صفحه -->
+  <img src="https://i.postimg.cc/d1zLGC3Y/Ilia.png" alt="Ilia" />
+  <!-- عنوان سایت -->
+  <h1 class="headline">🎂 Happpy Birthday, Ilia 🎂 (17)</h1>
+
+  <!-- جملات -->
+  <div class="text-container">
+    <div class="line">You're one of the brightest stars in my sky.</div>
+    <div class="line">You are like the light in the darkness,</div>
+    <div class="line">a reason to smile even on the toughest days.</div>
+    <div class="line">I'm so grateful for your love.</div>
+    <div class="line">You're not just a year older, but a year more amazing.</div>
+    <div class="line">I hope this small gift brings joy to your heart and never forget how special you truly are.</div>
+    <div class="line">Happy Birthdaaayyyy, my dearest!❤️❤️❤️</div>
+  </div>
+
+  <!-- دکمه‌های دیسکی برای پخش ویدیوها و نمایش دکمه های حاوی لینک های دانلود -->
+  <div class="disk-buttons">
+    <img src="https://i.postimg.cc/s2rffwk7/red-disk.webp" alt="Red Disk" id="redDisk" />
+    <img src="https://i.postimg.cc/Wzt6dZWV/yellow-disk.webp" alt="Yellow Disk" id="yellowDisk" />
+  </div>
+
+  <!-- نمایش ویدیو پس از کلیک روی دیسک‌ها -->
+  <div class="video-wrapper" id="videoWrapper">
+    <iframe id="videoFrame" src="" allowfullscreen></iframe>
+  </div>
+
+    <div class="text-for-button" id="textForButton">(These are buttons.👆)</div>
+  
+  <div class="billi-quote">"You should see yourself in a crown!!!"</div>
+
+  <!-- لینک‌های دانلود موزیک‌ها و ویدیو -->
+  <div class="downloads" id="downloads">
+    <a href="https://drive.google.com/file/d/1ii1OaIeWfAeDavBPKtaFFnU7waik9gto/view?usp=share_link" target="_blank">Download video</a>
+    <a href="https://drive.google.com/file/d/1xxdbDn42m_B62NiGGfBDdbOir0W_1xJO/view?usp=share_link" target="_blank">Download music(Piano version)</a>
+    <a href="https://drive.google.com/file/d/1xHKbhlGUW641KGH3BWoIF689eJbKZQra/view?usp=share_link" target="_blank">Download music(original)</a>
+  </div>
+
+  <button class="back-button" id="backButton">Back</button>
+
+  <!-- متن فوتر -->
+  <div class="footer" id="special-footer">©2025 Born of love❤️ by Arshia&Kiyan just for Ilia</div>
+
+  <!-- (javascript) اسکریپت‌های جاوااسکریپت برای تعامل با دیسک‌ها و ویدیو -->
+  <script>
+    const redDisk = document.getElementById("redDisk");
+    const yellowDisk = document.getElementById("yellowDisk");
+    const videoWrapper = document.getElementById("videoWrapper");
+    const downloads = document.getElementById("downloads");
+    const backButton = document.getElementById("backButton");
+    const videoFrame = document.getElementById("videoFrame");
+    const textForButton = document.getElementById("textForButton");
+
+    // Preloader
+    window.addEventListener("load", () => {
+      document.getElementById("preloader").style.display = "none";
+    });
+
+    // Click sound
+    const clickSound = new Audio("https://cdn.pixabay.com/audio/2022/03/15/audio_57fa21a2a4.mp3");
+
+    redDisk.addEventListener("click", () => {
+      clickSound.play();
+      playVideo("https://www.aparat.com/video/video/embed/videohash/0T6q7/vt/frame", redDisk);
+    });
+
+    yellowDisk.addEventListener("click", () => {
+      clickSound.play();
+      playVideo("https://www.aparat.com/video/video/embed/videohash/iai2833/vt/frame", yellowDisk);
+    });
+
+    // پخش ویدیو با دریافت آدرس ویدیو و نمایش کنترلر های مرتبط
+    function playVideo(url, clickedDisk) {
+      redDisk.classList.add("clicked");
+      yellowDisk.classList.add("clicked");
+      setTimeout(() => {
+        videoFrame.src = url;
+        videoWrapper.style.display = "flex";
+        downloads.style.display = "block";
+        backButton.style.display = "inline-block";
+        textForButton.style.display = "none";
+
+        // نمایش فقط لینک دانلود ویدیو در صورت کلیک روی دیسک زرد
+        const downloadLinks = downloads.querySelectorAll("a");
+        if (clickedDisk === yellowDisk) {
+          downloadLinks[0].style.display = "inline-block";
+        } else {
+          downloadLinks[0].style.display = "none";
+        }
+      }, 1000);
+    }
+
+    // Countdown timer
+    const countdown = document.createElement("div");
+    countdown.className = "countdown";
+    document.body.insertBefore(countdown, document.getElementById("videoWrapper"));
+
+    function updateCountdown() {
+      const now = new Date();
+      const nextBirthday = new Date(now.getFullYear() + 1, 2, 17); // assuming birthday is March 17
+      const diff = nextBirthday - now;
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      countdown.textContent = `Time left until Ilia's next birthday: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // برگشت به صفحه اصلی و مخفی کردن ویدیو و دکمه‌های دانلود
+    backButton.addEventListener("click", () => {
+      textForButton.style.animation = "none";
+      textForButton.offsetHeight; // trigger reflow
+      textForButton.style.animation = "fadeIn 1s forwards";
+      textForButton.style.display = "block";
+
+      redDisk.classList.remove("clicked");
+      yellowDisk.classList.remove("clicked");
+      videoFrame.src = ""; // برای توقف پخش ویدیو
+      videoWrapper.style.display = "none";
+      downloads.style.display = "none";
+      backButton.style.display = "none";
+
+      const downloadLinks = downloads.querySelectorAll("a");
+      downloadLinks.forEach(link => link.style.display = "inline-block");
+    });
+  </script>
+</body>
+</html>
