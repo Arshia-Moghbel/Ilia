@@ -123,10 +123,11 @@
       transition: transform 1s ease, opacity 1s ease;
     }
 
-    .disk-buttons img.clicked {
-      transform: rotate(720deg) scale(0);
-      opacity: 0;
-    }
+      .disk-buttons img.clicked {
+        transform: rotate(720deg) scale(0);
+        opacity: 0;
+        pointer-events: none;
+      }
 
     /* قاب ویدیو پس از کلیک روی دیسک‌ها نمایش داده می‌شود */
     .video-wrapper {
@@ -398,6 +399,17 @@
 
   <!-- (javascript) اسکریپت‌های جاوااسکریپت برای تعامل با دیسک‌ها و ویدیو -->
   <script>
+      function hideDisks() {
+        redDisk.classList.add("clicked");
+        yellowDisk.classList.add("clicked");
+        GreenDisk.classList.add("clicked");
+
+        setTimeout(() => {
+          redDisk.style.display = "none";
+          yellowDisk.style.display = "none";
+          GreenDisk.style.display = "none";
+        }, 800); // همزمان با انیمیشن
+      }
     const redDisk = document.getElementById("redDisk");
     const yellowDisk = document.getElementById("yellowDisk");
     const GreenDisk = document.getElementById("GreenDisk");
@@ -421,12 +433,12 @@
       galleryGrid.innerHTML = ""; // پاک کردن تصاویر قبلی
 
       const galleryImages = [
-        "https://i.postimg.cc/3R2T5wHZ/gallery1.jpg",
-        "https://i.postimg.cc/C5HXrf2f/gallery2.jpg",
-        "https://i.postimg.cc/5y8P3T1X/gallery3.jpg",
-        "https://i.postimg.cc/Sxfbg5QD/gallery4.jpg",
-        "https://i.postimg.cc/fy4kksM5/gallery5.jpg",
-        "https://i.postimg.cc/x8f9nZZk/gallery6.jpg"
+        "https://i.postimg.cc/jSLzTn5r/Ilia1.jpg",
+        "https://i.postimg.cc/hP4LC5Rv/Ilia2.jpg",
+        "https://i.postimg.cc/0QgGc591/Ilia3.jpg",
+        "https://i.postimg.cc/0QpY3gNM/Ilia4.jpg",
+        "https://i.postimg.cc/Bnk2nZLP/Ilia5.jpg",
+        "https://i.postimg.cc/K8PmRJ47/Ilia6.avif"
       ];
 
       galleryImages.forEach((src, index) => {
@@ -442,13 +454,16 @@
       backButton.style.display = "inline-block";
       textForButton.style.display = "none";
 
-      redDisk.classList.add("clicked");
-      yellowDisk.classList.add("clicked");
-      GreenDisk.classList.add("clicked");
+      hideDisks();
     });
 
     // پخش ویدیو با دریافت آدرس ویدیو و نمایش کنترلر های مرتبط
     function playVideo(url, clickedDisk) {
+      setTimeout(() => {
+        redDisk.style.display = "none";
+        yellowDisk.style.display = "none";
+        GreenDisk.style.display = "none";
+      }, 800);
       redDisk.classList.add("clicked");
       yellowDisk.classList.add("clicked");
       GreenDisk.classList.add("clicked");
@@ -503,6 +518,10 @@
       textForButton.style.animation = "fadeIn 1s forwards";
       textForButton.style.display = "block";
 
+      redDisk.style.display = "inline-block";
+      yellowDisk.style.display = "inline-block";
+      GreenDisk.style.display = "inline-block";
+      
       redDisk.classList.remove("clicked");
       yellowDisk.classList.remove("clicked");
       GreenDisk.classList.remove("clicked");
