@@ -106,13 +106,6 @@
     .line:nth-child(6) { animation-delay: 9.5s; }
     .line:nth-child(7) { animation-delay: 11s; }
 
-    @media (max-width: 600px) {
-      .line {
-        font-size: 1rem;
-        white-space: normal; /* به متن‌ها این امکان را می‌دهد که در صفحات کوچیک به خط بعد بروند */
-      }
-    }
-
     /* دکمه‌های دیسک که ویدیو را فعال می‌کنند */
     .disk-buttons {
       display: flex;
@@ -278,8 +271,9 @@
 
     @media (max-width: 600px) {
       .line, .headline {
-        font-size: 1.2rem;
+        font-size: 1rem;
         padding: 0 10px;
+        white-space: normal; /* به متن‌ها این امکان را می‌دهد که در صفحات کوچیک به خط بعد بروند */
       }
 
       .video-wrapper iframe {
@@ -293,8 +287,8 @@
       }
 
       .disk-buttons img {
-        width: 150px;
-        height: 150px;
+        width: 120px;
+        height: 120px;
       }
 
       .back-button {
@@ -450,27 +444,27 @@
 
       redDisk.classList.add("clicked");
       yellowDisk.classList.add("clicked");
+      GreenDisk.classList.add("clicked");
     });
 
     // پخش ویدیو با دریافت آدرس ویدیو و نمایش کنترلر های مرتبط
     function playVideo(url, clickedDisk) {
       redDisk.classList.add("clicked");
       yellowDisk.classList.add("clicked");
-      setTimeout(() => {
-        videoFrame.src = url;
-        videoWrapper.style.display = "flex";
-        downloads.style.display = "block";
-        backButton.style.display = "inline-block";
-        textForButton.style.display = "none";
+      GreenDisk.classList.add("clicked");
+      videoFrame.src = url;
+      videoWrapper.style.display = "flex";
+      downloads.style.display = "block";
+      backButton.style.display = "inline-block";
+      textForButton.style.display = "none";
 
-        // نمایش فقط لینک دانلود ویدیو در صورت کلیک روی دیسک زرد
-        const downloadLinks = downloads.querySelectorAll("a");
-        if (clickedDisk === yellowDisk) {
-          downloadLinks[0].style.display = "inline-block";
-        } else {
-          downloadLinks[0].style.display = "none";
-        }
-      }, 1000);
+      // نمایش فقط لینک دانلود ویدیو در صورت کلیک روی دیسک زرد
+      const downloadLinks = downloads.querySelectorAll("a");
+      if (clickedDisk === yellowDisk) {
+        downloadLinks[0].style.display = "inline-block";
+      } else {
+        downloadLinks[0].style.display = "none";
+      }
     }
 
     // Countdown timer
@@ -511,6 +505,7 @@
 
       redDisk.classList.remove("clicked");
       yellowDisk.classList.remove("clicked");
+      GreenDisk.classList.remove("clicked");
       videoFrame.src = ""; // برای توقف پخش ویدیو
       videoWrapper.style.display = "none";
       downloads.style.display = "none";
