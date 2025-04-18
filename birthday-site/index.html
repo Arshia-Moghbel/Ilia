@@ -312,6 +312,15 @@
           white-space: normal;
         }
     }
+
+  .countdown {
+    font-size: 1.4rem;
+    margin-top: 30px;
+    color: #fff;
+    font-weight: bold;
+    animation: fadeIn 2s ease-in-out 13.5s forwards;
+    opacity: 0;
+  }
   </style>
 </head>
 <body>
@@ -376,6 +385,7 @@
 
     // Click sound
     const clickSound = new Audio("https://cdn.pixabay.com/audio/2022/03/15/audio_57fa21a2a4.mp3");
+    clickSound.load();
 
     redDisk.addEventListener("click", () => {
       clickSound.play();
