@@ -52,20 +52,6 @@
       animation: pageFadeIn 1.5s ease;
     }
 
-    #preloader {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      background: #000428;
-      color: white;
-      font-size: 1.8rem;
-      font-family: 'Poppins', sans-serif;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-    }
-
     @keyframes pageFadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
@@ -109,7 +95,7 @@
       font-size: 1.5rem;
       margin: 20px 0;
       opacity: 0;
-      animation: fadeInLine 1s forwards;
+      animation: fadeInLine 1.5s ease forwards;
     }
       
     .line:nth-child(1) { animation-delay: 2s; }
@@ -119,6 +105,13 @@
     .line:nth-child(5) { animation-delay: 8s; }
     .line:nth-child(6) { animation-delay: 9.5s; }
     .line:nth-child(7) { animation-delay: 11s; }
+
+    @media (max-width: 600px) {
+      .line {
+        font-size: 1rem;
+        white-space: normal; /* به متن‌ها این امکان را می‌دهد که در صفحات کوچیک به خط بعد بروند */
+      }
+    }
 
     /* دکمه‌های دیسک که ویدیو را فعال می‌کنند */
     .disk-buttons {
@@ -314,17 +307,53 @@
     }
 
   .countdown {
-    font-size: 1.4rem;
+    font-size: 1.8rem;
     margin-top: 30px;
     color: #fff;
     font-weight: bold;
     animation: fadeIn 2s ease-in-out 13.5s forwards;
     opacity: 0;
   }
+
+  .gallery-wrapper {
+    margin-top: 40px;
+    padding: 40px 20px;
+    background: radial-gradient(circle at center, #004e92, #000428);
+    border-radius: 20px;
+    display: none;
+    animation: fadeIn 1.5s ease forwards;
+  }
+
+  .gallery-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .gallery-grid img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    animation: floatUp 0.8s ease forwards;
+    opacity: 0;
+  }
+
+  @keyframes floatUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px) rotate(-5deg) scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) rotate(0deg) scale(1);
+    }
+  }
   </style>
 </head>
 <body>
-  <div id="preloader">Loading your surprise...🎁</div>
   <!-- عکس اول صفحه -->
   <img src="https://i.postimg.cc/d1zLGC3Y/Ilia.png" alt="Ilia" />
   <!-- عنوان سایت -->
@@ -345,11 +374,16 @@
   <div class="disk-buttons">
     <img src="https://i.postimg.cc/s2rffwk7/red-disk.webp" alt="Red Disk" id="redDisk" />
     <img src="https://i.postimg.cc/Wzt6dZWV/yellow-disk.webp" alt="Yellow Disk" id="yellowDisk" />
+    <img src="https://i.postimg.cc/bwHmGtPS/green-disk.webp" alt="Green Disk" id="GreenDisk" />
   </div>
 
   <!-- نمایش ویدیو پس از کلیک روی دیسک‌ها -->
   <div class="video-wrapper" id="videoWrapper">
     <iframe id="videoFrame" src="" allowfullscreen></iframe>
+  </div>
+
+  <div class="gallery-wrapper" id="galleryWrapper">
+    <div class="gallery-grid" id="galleryGrid"></div>
   </div>
 
     <div class="text-for-button" id="textForButton">(These are buttons.👆)</div>
@@ -372,29 +406,50 @@
   <script>
     const redDisk = document.getElementById("redDisk");
     const yellowDisk = document.getElementById("yellowDisk");
+    const GreenDisk = document.getElementById("GreenDisk");
     const videoWrapper = document.getElementById("videoWrapper");
     const downloads = document.getElementById("downloads");
     const backButton = document.getElementById("backButton");
     const videoFrame = document.getElementById("videoFrame");
     const textForButton = document.getElementById("textForButton");
-
-    // Preloader
-    window.addEventListener("load", () => {
-      document.getElementById("preloader").style.display = "none";
-    });
-
-    // Click sound
-    const clickSound = new Audio("https://cdn.pixabay.com/audio/2022/03/15/audio_57fa21a2a4.mp3");
-    clickSound.load();
+    const galleryWrapper = document.getElementById("galleryWrapper");
+    const galleryGrid = document.getElementById("galleryGrid");
 
     redDisk.addEventListener("click", () => {
-      clickSound.play();
       playVideo("https://www.aparat.com/video/video/embed/videohash/0T6q7/vt/frame", redDisk);
     });
 
     yellowDisk.addEventListener("click", () => {
-      clickSound.play();
       playVideo("https://www.aparat.com/video/video/embed/videohash/iai2833/vt/frame", yellowDisk);
+    });
+
+    GreenDisk.addEventListener("click", () => {
+      galleryGrid.innerHTML = ""; // پاک کردن تصاویر قبلی
+
+      const galleryImages = [
+        "https://i.postimg.cc/3R2T5wHZ/gallery1.jpg",
+        "https://i.postimg.cc/C5HXrf2f/gallery2.jpg",
+        "https://i.postimg.cc/5y8P3T1X/gallery3.jpg",
+        "https://i.postimg.cc/Sxfbg5QD/gallery4.jpg",
+        "https://i.postimg.cc/fy4kksM5/gallery5.jpg",
+        "https://i.postimg.cc/x8f9nZZk/gallery6.jpg"
+      ];
+
+      galleryImages.forEach((src, index) => {
+        const img = document.createElement("img");
+        img.src = src;
+        img.style.animationDelay = `${index * 0.1}s`;
+        galleryGrid.appendChild(img);
+      });
+
+      galleryWrapper.style.display = "block";
+      videoWrapper.style.display = "none";
+      downloads.style.display = "none";
+      backButton.style.display = "inline-block";
+      textForButton.style.display = "none";
+
+      redDisk.classList.add("clicked");
+      yellowDisk.classList.add("clicked");
     });
 
     // پخش ویدیو با دریافت آدرس ویدیو و نمایش کنترلر های مرتبط
@@ -425,7 +480,15 @@
 
     function updateCountdown() {
       const now = new Date();
-      const nextBirthday = new Date(now.getFullYear() + 1, 2, 17); // assuming birthday is March 17
+      const birthdayMonth = 2; // آبان (ماه 11 میلادی = 10 چون صفر ایندکس است)
+      const birthdayDay = 2; // چون 11 آبان = 2 نوامبر
+      const birthYear = 2008;
+      const currentAge = now.getFullYear() - birthYear - (now < new Date(now.getFullYear(), birthdayMonth, birthdayDay) ? 1 : 0);
+      const nextAge = currentAge + 1;
+      let nextBirthday = new Date(now.getFullYear(), birthdayMonth, birthdayDay);
+      if (now > nextBirthday) {
+        nextBirthday = new Date(now.getFullYear() + 1, birthdayMonth, birthdayDay);
+      }
       const diff = nextBirthday - now;
 
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -433,7 +496,7 @@
       const minutes = Math.floor((diff / (1000 * 60)) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
 
-      countdown.textContent = `Time left until Ilia's next birthday: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+      countdown.textContent = `Ilia is currently ${currentAge}, turning ${nextAge} in: ${days}d ${hours}h ${minutes}m ${seconds}s (And life moves so fast...)`;
     }
 
     setInterval(updateCountdown, 1000);
@@ -451,6 +514,7 @@
       videoFrame.src = ""; // برای توقف پخش ویدیو
       videoWrapper.style.display = "none";
       downloads.style.display = "none";
+      galleryWrapper.style.display = "none";
       backButton.style.display = "none";
 
       const downloadLinks = downloads.querySelectorAll("a");
