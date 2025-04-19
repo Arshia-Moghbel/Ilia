@@ -271,10 +271,12 @@
       }
 
     @media (max-width: 600px) {
-      .line, .headline {
-        font-size: 1rem;
-        padding: 0 10px;
-        white-space: normal; /* به متن‌ها این امکان را می‌دهد که در صفحات کوچیک به خط بعد بروند */
+      .headline {
+        font-size: 1.5rem;
+      }
+      
+      .line {
+        font-size: 1.2rem;
       }
 
       .video-wrapper iframe {
@@ -593,6 +595,11 @@
           largeImg.classList.add("lightbox-img");
           lightbox.appendChild(largeImg);
           document.body.appendChild(lightbox);
+          lightbox.addEventListener("click", (e) => {
+            if (e.target === lightbox) {
+              lightbox.remove();
+            }
+          });
  
           const prevBtn = document.createElement("button");
           prevBtn.textContent = "‹";
@@ -625,13 +632,21 @@
             e.stopPropagation();
             lightbox.remove();
           });
- 
-          lightbox.addEventListener("click", () => {
-            lightbox.classList.remove("show");
-            setTimeout(() => {
+          
+          function lightboxKeyHandler(e) {
+            if (e.key === "Escape") {
               lightbox.remove();
-            }, 500);
-          });
+              document.removeEventListener("keydown", lightboxKeyHandler);
+            } else if (e.key === "ArrowLeft") {
+              currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+              largeImg.src = galleryImages[currentIndex];
+            } else if (e.key === "ArrowRight") {
+              currentIndex = (currentIndex + 1) % galleryImages.length;
+              largeImg.src = galleryImages[currentIndex];
+            }
+          }
+          document.addEventListener("keydown", lightboxKeyHandler);
+ 
         });
       });
 
