@@ -317,7 +317,7 @@
   right: 0;
   bottom: 0;
   background-color: rgba(0, 0, 0, 0.8);
-  z-index: 9999;
+  z-index: 9998;
   justify-content: center;
   align-items: center;
   -webkit-user-select: none;
@@ -326,17 +326,16 @@
   user-select: none;
 }
 
-.lightbox img {
-  max-width: 90%;
-  max-height: 90%;
-  pointer-events: none;
-  user-select: none;
-  -webkit-user-select: none;
-  -webkit-user-drag: none;
-  -webkit-touch-callout: none;
-  -moz-user-select: none;
-  filter: blur(0.0001px);
-}
+  .lightbox-img {
+    max-width: 90vw;
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+    border-radius: 12px;
+    z-index: 9999;
+  }
 
 .lightbox.show {
   display: flex;
@@ -378,23 +377,121 @@
       transform: translateY(0) rotate(0deg) scale(1);
     }
   }
-  </style>
+  button {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    font-size: 2rem;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  }
+  
+  button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+  }
+  
+  button:focus {
+    outline: none;
+  }
+
+  .lightbox-prev,
+  .lightbox-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2rem;
+    width: 60px;
+    height: 60px;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+
+  .lightbox-prev {
+    left: 30px;
+  }
+
+  .lightbox-next {
+    right: 30px;
+  }
+
+  .lightbox-prev:hover,
+  .lightbox-next:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+  }
+  
+  .lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 1.5rem;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 0, 0, 0.6);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10001;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+  }
+  
+  .lightbox-close:hover {
+    background-color: rgba(255, 0, 0, 0.8);
+    transform: scale(1.1);
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+  }
+ 
+  .calendar-btn {
+    display: inline-block;
+    background-color: #00c853;
+    color: white;
+    font-weight: bold;
+    padding: 10px 18px;
+    margin-top: 10px;
+    text-decoration: none;
+    border-radius: 25px;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  .calendar-btn:hover {
+    background-color: #00e676;
+    transform: scale(1.05);
+  }
+ 
+ </style>
 </head>
 <body>
   <!-- عکس اول صفحه -->
   <img src="https://i.postimg.cc/d1zLGC3Y/Ilia.png" alt="Ilia" />
   <!-- عنوان سایت -->
-  <h1 class="headline">🎂 Happpy Birthday, Ilia 🎂 (17)</h1>
+  <h1 class="headline">🎂 Happppy Birthday, Ilia! 🎂 (17)</h1>
 
   <!-- جملات -->
   <div class="text-container">
-    <div class="line">You're one of the brightest stars in my sky.</div>
-    <div class="line">You are like the light in the darkness,</div>
-    <div class="line">a reason to smile even on the toughest days.</div>
-    <div class="line">I'm so grateful for your love.</div>
-    <div class="line">You're not just a year older, but a year more amazing.</div>
-    <div class="line">I hope this small gift brings joy to your heart and never forget how special you truly are.</div>
-    <div class="line">Happy Birthdaaayyyy, my dearest!❤️❤️❤️</div>
+      <div class="line">You’re one of the brightest stars in my sky,</div>
+      <div class="line">like a warm light that shines in the middle of the darkest night.</div>
+      <div class="line">You’re a reason to smile even on the hardest days.</div>
+      <div class="line">I’m so, so grateful for your love and for you.</div>
+      <div class="line">You’re not just a year older — you’re a year more incredible, more you.</div>
+      <div class="line">I hope this tiny gift brings a smile to your cute face and reminds you how deeply special you truly are.</div>
+      <div class="line">Haaaappy Birthdaaay, my dearest! ❤️❤️❤️</div>
   </div>
 
   <!-- دکمه‌های دیسکی برای پخش ویدیوها و نمایش دکمه های حاوی لینک های دانلود -->
@@ -425,6 +522,7 @@
   </div>
 
   <button class="back-button" id="backButton">Back</button>
+  <div class="countdown" id="countdown"></div>
 
   <!-- متن فوتر -->
   <div class="footer" id="special-footer">©2025 Born of love❤️ by Arshia&Kiyan just for Ilia</div>
@@ -469,10 +567,10 @@
         "https://i.postimg.cc/0QgGc591/Ilia3.jpg",
         "https://i.postimg.cc/sXzw7npd/Ilia4.jpg",
         "https://i.postimg.cc/Bnk2nZLP/Ilia5.jpg",
-        "https://i.postimg.cc/K8PmRJ47/Ilia6.avif",
+        "https://i.postimg.cc/tR3h21Zy/Ilia6.jpg",
         "https://i.postimg.cc/cHPVnqsx/Ilia7.jpg",
         "https://i.postimg.cc/GtY6PM2k/Ilia8.jpg",
-        "https://i.postimg.cc/ncKhp2kj/Ilia10.jpg",
+        "https://i.postimg.cc/3NFmR65W/Ilia10.jpg",
         "https://i.postimg.cc/Jh0r3LWZ/Ilia11.jpg",
         "https://i.postimg.cc/MpdZjGgz/Ilia9.jpg"
 
@@ -485,48 +583,52 @@
         galleryGrid.appendChild(img);
 
         img.addEventListener("click", () => {
-        const lightbox = document.createElement("div");
-        lightbox.classList.add("lightbox", "show");
-        lightbox.oncontextmenu = (e) => e.preventDefault();
-
+          let currentIndex = index;
+          const lightbox = document.createElement("div");
+          lightbox.classList.add("lightbox", "show");
+          lightbox.style.zIndex = "9999"; // اطمینان از نمایش بالاتر
+ 
           const largeImg = document.createElement("img");
-          largeImg.src = src;
-          largeImg.setAttribute("draggable", "false");
-          largeImg.setAttribute("oncontextmenu", "return false;");
-          largeImg.setAttribute("referrerpolicy", "no-referrer");
-          largeImg.style.borderRadius = "0";
-          largeImg.style.width = "90%";
-          largeImg.style.height = "auto";
+          largeImg.src = galleryImages[currentIndex];
+          largeImg.classList.add("lightbox-img");
           lightbox.appendChild(largeImg);
-
           document.body.appendChild(lightbox);
-          const screenBlocker = document.createElement("div");
-          screenBlocker.style.position = "fixed";
-          screenBlocker.style.top = 0;
-          screenBlocker.style.left = 0;
-          screenBlocker.style.width = "100vw";
-          screenBlocker.style.height = "100vh";
-          screenBlocker.style.zIndex = "10000";
-          screenBlocker.style.pointerEvents = "none";
-          screenBlocker.style.backgroundColor = "rgba(0,0,0,0)";
-          document.body.appendChild(screenBlocker);
-          document.addEventListener("keydown", (e) => {
-            if (
-              e.key === "PrintScreen" ||
-              (e.ctrlKey && (e.key.toLowerCase() === "s" || e.key === "p"))
-            ) {
-              e.preventDefault();
-              alert("Not allowed 😎");
-            }
+ 
+          const prevBtn = document.createElement("button");
+          prevBtn.textContent = "‹";
+          prevBtn.classList.add("lightbox-prev");
+          lightbox.appendChild(prevBtn);
+ 
+          const nextBtn = document.createElement("button");
+          nextBtn.textContent = "›";
+          nextBtn.classList.add("lightbox-next");
+          lightbox.appendChild(nextBtn);
+ 
+          const closeBtn = document.createElement("button");
+          closeBtn.textContent = "×";
+          closeBtn.classList.add("lightbox-close");
+          lightbox.appendChild(closeBtn);
+          
+          prevBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            currentIndex = (currentIndex - 1 + galleryImages.length) % galleryImages.length;
+            largeImg.src = galleryImages[currentIndex];
           });
-
-          lightbox.addEventListener("contextmenu", (e) => e.preventDefault());
-
-          // بستن لایت‌باکس روی کلیک
+ 
+          nextBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            currentIndex = (currentIndex + 1) % galleryImages.length;
+            largeImg.src = galleryImages[currentIndex];
+          });
+ 
+          closeBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            lightbox.remove();
+          });
+ 
           lightbox.addEventListener("click", () => {
             lightbox.classList.remove("show");
             setTimeout(() => {
-              screenBlocker.remove();
               lightbox.remove();
             }, 500);
           });
@@ -570,7 +672,7 @@
     // Countdown timer
     const countdown = document.createElement("div");
     countdown.className = "countdown";
-    document.body.insertBefore(countdown, document.getElementById("videoWrapper"));
+    document.getElementById("countdown").replaceWith(countdown);
 
     function updateCountdown() {
       const now = new Date();
@@ -590,7 +692,7 @@
       const minutes = Math.floor((diff / (1000 * 60)) % 60);
       const seconds = Math.floor((diff / 1000) % 60);
 
-      countdown.textContent = `Ilia is currently ${currentAge}, turning ${nextAge} in: ${days}d ${hours}h ${minutes}m ${seconds}s (And life moves so fast...)`;
+      countdown.textContent = `Ilia is currently ${currentAge}, turning ${nextAge} in: ${days}d ${hours}h ${minutes}m ${seconds}s ("And life moves so fast...")`;
     }
 
     setInterval(updateCountdown, 1000);
