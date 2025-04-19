@@ -309,6 +309,38 @@
     animation: fadeIn 2s ease-in-out 13.5s forwards;
     opacity: 0;
   }
+.lightbox {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.lightbox img {
+  max-width: 90%;
+  max-height: 90%;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  filter: blur(0.0001px);
+}
+
+.lightbox.show {
+  display: flex;
+}
 
   .gallery-wrapper {
     margin-top: 40px;
@@ -369,7 +401,7 @@
   <div class="disk-buttons">
     <img src="https://i.postimg.cc/s2rffwk7/red-disk.webp" alt="Red Disk" id="redDisk" />
     <img src="https://i.postimg.cc/Wzt6dZWV/yellow-disk.webp" alt="Yellow Disk" id="yellowDisk" />
-    <img src="https://i.postimg.cc/bwHmGtPS/green-disk.webp" alt="Green Disk" id="GreenDisk" />
+    <img src="https://i.postimg.cc/FKJh7xvQ/green-disk.webp" alt="Green Disk" id="GreenDisk" />
   </div>
 
   <!-- نمایش ویدیو پس از کلیک روی دیسک‌ها -->
@@ -433,12 +465,17 @@
       galleryGrid.innerHTML = ""; // پاک کردن تصاویر قبلی
 
       const galleryImages = [
-        "https://i.postimg.cc/jSLzTn5r/Ilia1.jpg",
         "https://i.postimg.cc/hP4LC5Rv/Ilia2.jpg",
         "https://i.postimg.cc/0QgGc591/Ilia3.jpg",
-        "https://i.postimg.cc/0QpY3gNM/Ilia4.jpg",
+        "https://i.postimg.cc/sXzw7npd/Ilia4.jpg",
         "https://i.postimg.cc/Bnk2nZLP/Ilia5.jpg",
-        "https://i.postimg.cc/K8PmRJ47/Ilia6.avif"
+        "https://i.postimg.cc/K8PmRJ47/Ilia6.avif",
+        "https://i.postimg.cc/cHPVnqsx/Ilia7.jpg",
+        "https://i.postimg.cc/GtY6PM2k/Ilia8.jpg",
+        "https://i.postimg.cc/ncKhp2kj/Ilia10.jpg",
+        "https://i.postimg.cc/Jh0r3LWZ/Ilia11.jpg",
+        "https://i.postimg.cc/MpdZjGgz/Ilia9.jpg"
+
       ];
 
       galleryImages.forEach((src, index) => {
@@ -446,6 +483,54 @@
         img.src = src;
         img.style.animationDelay = `${index * 0.1}s`;
         galleryGrid.appendChild(img);
+
+        img.addEventListener("click", () => {
+        const lightbox = document.createElement("div");
+        lightbox.classList.add("lightbox", "show");
+        lightbox.oncontextmenu = (e) => e.preventDefault();
+
+          const largeImg = document.createElement("img");
+          largeImg.src = src;
+          largeImg.setAttribute("draggable", "false");
+          largeImg.setAttribute("oncontextmenu", "return false;");
+          largeImg.setAttribute("referrerpolicy", "no-referrer");
+          largeImg.style.borderRadius = "0";
+          largeImg.style.width = "90%";
+          largeImg.style.height = "auto";
+          lightbox.appendChild(largeImg);
+
+          document.body.appendChild(lightbox);
+          const screenBlocker = document.createElement("div");
+          screenBlocker.style.position = "fixed";
+          screenBlocker.style.top = 0;
+          screenBlocker.style.left = 0;
+          screenBlocker.style.width = "100vw";
+          screenBlocker.style.height = "100vh";
+          screenBlocker.style.zIndex = "10000";
+          screenBlocker.style.pointerEvents = "none";
+          screenBlocker.style.backgroundColor = "rgba(0,0,0,0)";
+          document.body.appendChild(screenBlocker);
+          document.addEventListener("keydown", (e) => {
+            if (
+              e.key === "PrintScreen" ||
+              (e.ctrlKey && (e.key.toLowerCase() === "s" || e.key === "p"))
+            ) {
+              e.preventDefault();
+              alert("Not allowed 😎");
+            }
+          });
+
+          lightbox.addEventListener("contextmenu", (e) => e.preventDefault());
+
+          // بستن لایت‌باکس روی کلیک
+          lightbox.addEventListener("click", () => {
+            lightbox.classList.remove("show");
+            setTimeout(() => {
+              screenBlocker.remove();
+              lightbox.remove();
+            }, 500);
+          });
+        });
       });
 
       galleryWrapper.style.display = "block";
