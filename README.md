@@ -1,4 +1,3 @@
-# Ilia
 <p align="center">
   <img src="Ilia-banner.png" alt="Ilia Banner" width="100%">
 </p>
