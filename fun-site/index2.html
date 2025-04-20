@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Ilia, in Every Language</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+      color: white;
+      font-family: 'Courier New', Courier, monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+    #quote {
+      font-size: 2rem;
+      text-align: center;
+      white-space: pre-wrap;
+      max-width: 90%;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    .fade-in {
+      opacity: 1 !important;
+    }
+    .highlight {
+      color: #ff79c6;
+      font-size: 2.3rem;
+      font-weight: bold;
+      text-shadow: 0 0 10px #ff79c6;
+    }
+  </style>
+</head>
+<body>
+  <div id="quote"></div>
+  <audio autoplay loop>
+    <source src="https://radiodl2.musicmelnet.com/Music/1400/2/Relax%20Music%20-%20Musiceto%20(1).mp3" type="audio/mp3">
+  </audio>
+  <script>
+    const quotes = [
+      "You are not alone.",
+      "No estás solo/a. (Spanish)",
+      "Ты не один. (Russian)",
+      "Tu n'es pas seul(e). (French)",
+      "あなたは一人じゃない。 (Japanese)",
+      "너는 혼자가 아니야. (Korean)",
+      "شما تنها نیستید. (Persian)",
+      "Non sei solo/a. (Italian)",
+      "Du bist nicht allein. (German)",
+      "Você não está sozinho/a. (Portuguese)",
+      "Ilia, you are my inspiration in every language."
+    ];
+
+    const quoteEl = document.getElementById("quote");
+    let index = 0;
+
+    function typeWriter(text, i, callback, special = false) {
+      if (i < text.length) {
+        quoteEl.innerHTML = special ? `<span class='highlight'>${text.substring(0, i + 1)}</span>` : text.substring(0, i + 1);
+        setTimeout(() => typeWriter(text, i + 1, callback, special), 60);
+      } else {
+        setTimeout(callback, 2000);
+      }
+    }
+
+    function showNextQuote() {
+      quoteEl.classList.remove("fade-in");
+      const isLast = index === quotes.length - 1;
+      setTimeout(() => {
+        const quote = quotes[index];
+        quoteEl.innerHTML = "";
+        typeWriter(quote, 0, () => {
+          if (!isLast) {
+            index++;
+            showNextQuote();
+          }
+        }, isLast);
+        quoteEl.classList.add("fade-in");
+      }, 500);
+    }
+
+    showNextQuote();
+  </script>
+</body>
+</html>
