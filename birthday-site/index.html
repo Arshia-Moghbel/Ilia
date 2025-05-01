@@ -599,15 +599,15 @@
 
       const captions = [
         "The moment I knew you’re one of a kind 💫",
+        "I wish I could freeze this moment forever ⏳",
         "That laugh... I still hear it in my head sometimes 💙",
         "You made that sunset more beautiful than it already was 🌅",
-        "Eyes full of wonder, heart full of magic ✨",
-        "When your smile healed a whole week of sadness 😌",
-        "Just you being you — and that’s always enough 💖",
         "Our memory lane begins here 🛤️",
-        "I wish I could freeze this moment forever ⏳",
-        "Your presence turns ordinary into extraordinary 🌈",
-        "You didn’t know it, but you saved me that day ❤️",
+        "Just you being you and that’s always enough 💖",
+        "When your smile healed a whole week of sadness 😌",
+        "Eyes full of wonder, heart full of magic ✨",
+        "You didn't know it, but that day, you made our day ❤️",
+        "Your presence turns ordinary into extraordinary 🩵",
       ];
 
       galleryImages.forEach((src, index) => {
@@ -632,7 +632,6 @@
         galleryGrid.appendChild(wrapper);
 
         img.addEventListener("click", () => {
-          clearInterval(slideshowInterval);
           let currentIndex = index;
           const lightbox = document.createElement("div");
           lightbox.classList.add("lightbox", "show");
@@ -704,34 +703,6 @@
       textForButton.style.display = "none";
 
       hideDisks();
-
-      // اسلایدشو
-      function startSlideshow() {
-        clearInterval(slideshowInterval);
-        let currentSlide = 0;
-
-        slideshowInterval = setInterval(() => {
-          const wrappers = galleryGrid.querySelectorAll("div");
-          wrappers.forEach((wrapper, index) => {
-            const img = wrapper.querySelector("img");
-            if (!img) return;
-
-            if (index === currentSlide) {
-              img.style.opacity = "1";
-              img.style.transform = "scale(1.08)";
-            } else {
-              img.style.opacity = "0.3";
-              img.style.transform = "scale(1)";
-            }
-          });
-
-          currentSlide = (currentSlide + 1) % wrappers.length;
-        }, 4000);
-      }
-      // متغیر اسلایدشو را global تعریف می‌کنیم
-      window.slideshowInterval && clearInterval(window.slideshowInterval);
-      var slideshowInterval;
-      startSlideshow();
     });
 
     // پخش ویدیو با دریافت آدرس ویدیو و نمایش کنترلر های مرتبط
