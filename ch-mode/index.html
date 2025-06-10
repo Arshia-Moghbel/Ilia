@@ -127,8 +127,8 @@
   </style>
 </head>
 <body>
-  <audio id="bg-music" autoplay loop>
-    <source src="Interstellar.mp3" type="audio/mpeg">
+  <audio id="bg-music" autoplay loop muted>
+    <source src="music/Interstellar.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
   <div class="stars" id="stars"></div>
@@ -138,17 +138,17 @@
     <div class="subtitle">Not because you're always strong, but because even in your silence, there's light.</div>
 
     <div class="paragraph">
-      You don’t have to be perfect. You don’t have to smile to be lovable.  
+      You don’t have to be perfect. You don’t have to smile to be lovable.
       Just the way you are — that’s what moves me.
     </div>
 
     <div class="paragraph">
-      I want you to know: no one could ever take your place.  
+      I want you to know: no one could ever take your place.
       Even if we drift, even if our words grow quiet... your presence remains special.
     </div>
 
     <div class="paragraph">
-      There will be days when you just need to sleep, to be quiet, to think deeply...  
+      There will be days when you just need to sleep, to be quiet, to think deeply...
       and I’ll be there. Not to fix you, just to be beside you.
     </div>
 
@@ -180,11 +180,14 @@
     // پخش خودکار آهنگ
     const bgMusic = document.getElementById('bg-music');
     window.addEventListener('load', () => {
+      // ابتدا unmute و سپس play (برای رفع محدودیت Safari)
+      bgMusic.muted = false;
       const playPromise = bgMusic.play();
       if (playPromise !== undefined) {
         playPromise.catch(() => {
           // اگر پخش نشد، با اولین کلیک فعال شود
           document.body.addEventListener('click', () => {
+            bgMusic.muted = false;
             bgMusic.play();
           }, { once: true });
         });
