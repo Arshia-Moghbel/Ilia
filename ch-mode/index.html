@@ -127,7 +127,7 @@
   </style>
 </head>
 <body>
-  <audio id="bg-music" autoplay loop muted>
+  <audio id="bg-music" autoplay loop muted playsinline>
     <source src="music/interstellar.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
@@ -180,18 +180,22 @@
     // پخش خودکار آهنگ
     const bgMusic = document.getElementById('bg-music');
     window.addEventListener('load', () => {
-      // ابتدا unmute و سپس play (برای رفع محدودیت Safari)
-      bgMusic.muted = false;
-      const playPromise = bgMusic.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          // اگر پخش نشد، با اولین کلیک فعال شود
-          document.body.addEventListener('click', () => {
-            bgMusic.muted = false;
-            bgMusic.play();
-          }, { once: true });
-        });
-      }
+      const tryPlay = () => {
+        bgMusic.muted = false;
+        const playPromise = bgMusic.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            // fallback برای Safari یا Chrome
+            document.body.addEventListener('click', () => {
+              bgMusic.muted = false;
+              bgMusic.play();
+            }, { once: true });
+          });
+        }
+      };
+
+      // تاخیر جزئی برای اجازه به Safari جهت آماده‌سازی صدا
+      setTimeout(tryPlay, 500);
     });
   </script>
 </body>
