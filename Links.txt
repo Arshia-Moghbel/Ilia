@@ -10,4 +10,4 @@ Fun site:
 W-h-s.netlify.app
 
 Ch-mode:
-ch-mode.netlify.app
+ch-y-mode.netlify.app
