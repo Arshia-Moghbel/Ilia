@@ -13,17 +13,12 @@
     body {
       margin: 0;
       font-family: 'Vazirmatn', sans-serif;
-      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
+      background: radial-gradient(ellipse at center, #0a0a23 0%, #000000 100%);
+      background-image: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?auto=format&fit=crop&w=1170&q=80');
+      background-size: cover;
+      background-position: center;
       color: #ffffff;
-      overflow-x: hidden;
-      overflow-y: auto;
-    }
-    @keyframes gradientBG {
-      0% {background-position: 0% 50%;}
-      50% {background-position: 100% 50%;}
-      100% {background-position: 0% 50%;}
+      overflow: hidden;
     }
     .background {
       background-image: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564');
@@ -57,19 +52,19 @@
     }
     h2 {
       font-size: 1.2rem;
-      color: #ddd;
+      color: #ffffff;
       margin-bottom: 2rem;
     }
     p {
       font-size: 1.2rem;
       margin-bottom: 1rem;
-      color: #e0e0e0;
+      color: #ffffff;
       line-height: 1.8;
     }
     .quote {
       font-style: italic;
       font-size: 1rem;
-      color: #bbbbbb;
+      color: #ffffff;
       margin-top: 2rem;
     }
     audio {
@@ -108,12 +103,13 @@
     }
     .subtitle {
       font-size: 1.3rem;
-      color: #ccc;
-      margin-bottom: 2rem;
+      color: #ffffff;
+      min-height: 100vh;
+      overflow-wrap: break-word;
     }
     .paragraph {
       font-size: 1.1rem;
-      color: #e0e0e0;
+      color: #ffffff;
       line-height: 2;
       margin-bottom: 1.8rem;
     }
